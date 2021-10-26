@@ -1,6 +1,6 @@
 import { INCREMENT, DECREMENT } from '../actions/';
 
-const counterReducer = (state = [0, 0, 0, 8], action) => {
+const counterReducer = (state = [0, 0, 0, 99], action) => {
 
       switch (action.type) {
             case INCREMENT:
