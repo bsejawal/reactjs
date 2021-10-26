@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { incrementCount, decrementCount } from '../actions';
+import Counter from './counter';
 
 class Counters extends Component {
       renderCounters() {
-            return this.props.counters.map((value, i) => {
+            return this.props.counters.map((counter, index) => {
                   return (
-                        <div>
-                              <h1>{value}</h1>
-                              <p>
-                                    <button onClick={() => this.props.incrementCount(i)}>+</button>
-                                    <button onClick={() => this.props.decrementCount(i)}>-</button>
-                              </p>
-                        </div>
+                        <Counter
+                              key={index}
+                              index={index}
+                              value={counter.value}
+                              name={counter.name}
+                              incrementCount={this.props.incrementCount}
+                              decrementCount={this.props.decrementCount}
+                        />
                   )
             })
-
       }
-
 
       render() {
             return (

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Max extends Component {
+
       render() {
+            const values = this.props.counters.map((counter) => counter.value);
             return (
-                  <h1>Max Count is : {Math.max(...this.props.counters)}</h1>
+                  <h1>Max Count is : {Math.max(...values)}</h1>
             )
       }
 }

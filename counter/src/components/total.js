@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 
 class Total extends Component {
       render() {
+            const total = this.props.counters.reduce((acc, counter) => acc + counter.value, 0)
             return (
-                  <h1>Total : {this.props.counters.reduce((acc, value) => acc + value)} </h1>
+                  <h1>Total : {total} </h1>
             )
       }
 }

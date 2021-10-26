@@ -1,22 +1,24 @@
-import { INCREMENT, DECREMENT } from '../actions/';
+import { INCREMENT, DECREMENT, NEW_COUNTER } from '../actions/';
 
-const counterReducer = (state = [0, 0, 0], action) => {
+const counterReducer = (state = [], action) => {
 
       switch (action.type) {
             case INCREMENT:
-                  return state.map((value, i) => {
+                  return state.map((counter, i) => {
                         if (action.payload.index === i) {
-                              return value += 1;
+                              counter.value += 1;
                         }
-                        return value;
+                        return counter;
                   });
             case DECREMENT:
-                  return state.map((value, i) => {
+                  return state.map((counter, i) => {
                         if (action.payload.index === i) {
-                              return value -= 1;
+                              return counter.value -= 1;
                         }
-                        return value;
+                        return counter;
                   });
+            case NEW_COUNTER:
+                  return [...state, { name: action.payload.name, value: 0 }]
             default:
                   return state;
       }
