@@ -3,14 +3,16 @@ export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
 
 //Action Creator
-export const incrementCount = () => {
+export const incrementCount = (index) => {
       return {
-            type: INCREMENT
+            type: INCREMENT,
+            payload: { index }
       }
 }
 
-export const decrementCount = () => {
+export const decrementCount = (index) => {
       return {
-            type: DECREMENT
+            type: DECREMENT,
+            payload: { index }
       }
 }

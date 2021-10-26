@@ -3,6 +3,6 @@ import counterReducer from './counterReducer';
 
 
 export default combineReducers({
-      count: counterReducer
+      counters: counterReducer
 });
 // export default reducers;
