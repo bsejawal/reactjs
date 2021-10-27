@@ -1,32 +1,31 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 class ProductComponent extends React.Component {
 
       render() {
-            // const products = this.state.allProducts.products;
-            // console.log(this.props)
-            console.log(this.props.products)
-
-            return (
-                  <div className="four column wide">
-                        <div className="ui link cards">
-                              {this.props.products.map(product => {
-                                    return (
+            const renderList = this.props.products.map((product) => {
+                  const { id, title, image, price, category } = product;
+                  return (
+                        <div className="four wide column" key={id}>
+                              <Link to={`/product/${id}`}>
+                                    <div className="ui link cards">
                                           <div className="card">
-                                                <div className="image"></div>
-                                                <div className="content">
-                                                      <div className="header">
-                                                            {product.title}
-                                                      </div>
+                                                <div className="image">
+                                                      <img src={image} alt={title} />
                                                 </div>
-
+                                                <div className="content">
+                                                      <div className="header">{title}</div>
+                                                      <div className="meta price">$ {price}</div>
+                                                      <div className="meta">{category}</div>
+                                                </div>
                                           </div>
-                                    )
-                              })}
-
+                                    </div>
+                              </Link>
                         </div>
-                  </div>
-            )
+                  );
+            });
+            return <>{renderList}</>
       }
 }
 const mapStateToProps = (state) => {
@@ -35,10 +34,3 @@ const mapStateToProps = (state) => {
       }
 }
 export default connect(mapStateToProps)(ProductComponent);
-
-// const mapStateToProps = (state) => {
-//       return {
-//             allProducts: state.allProducts
-//       }
-// }
-// export default connect(mapStateToProps)(ProductListing);
