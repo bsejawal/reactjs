@@ -2,14 +2,20 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { selectedProduct, removeSelectedProduct } from '../redux/actions/productActions'
+import { showSpinner, hideSpinner } from '../redux/actions/spinnerActions';
+
 class ProductDetail extends React.Component {
 
       fetchProductDetail(productId) {
+            this.props.showSpinner();
+            console.log("fetchProduct spinner value ", this.props.spinner);
             axios.get(`https://fakestoreapi.com/products/${productId}`)
                   .then((res) => {
                         this.props.selectedProduct(res.data);
+                        this.props.hideSpinner();
                   })
                   .catch((error) => {
+                        this.props.hideSpinner();
                         console.log(error);
                   });
       }
@@ -64,12 +70,16 @@ class ProductDetail extends React.Component {
 const mapStateToDispatch = () => {
       return {
             selectedProduct,
-            removeSelectedProduct
+            removeSelectedProduct,
+            showSpinner,
+            hideSpinner
+
       }
 }
 const mapStateToProps = (state) => {
       return {
-            product: state.product
+            product: state.product,
+            spinner: state.spinner
       }
 }
 export default connect(mapStateToProps, mapStateToDispatch())(ProductDetail);

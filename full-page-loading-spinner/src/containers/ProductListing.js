@@ -3,33 +3,38 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import ProductComponent from './ProductComponent';
 import { setProducts } from '../redux/actions/productActions'
+import { showSpinner, hideSpinner } from '../redux/actions/spinnerActions';
 class ProductListing extends React.Component {
-      constructor(props) {
-            super(props);
-            console.log("Hello World from React!!!")
-            // this.fetchProducts();
 
-      }
       fetchProducts() {
-            console.log("fetchProduct method is called !!!")
+            // console.log("fetchProduct method is called !!!")
+            // this.props.dispatch(showLoader());
             axios
                   .get("https://fakestoreapi.com/products")
                   .then(res => {
-                        console.log(res.data);
+                        this.props.showSpinner();
                         this.props.setProducts(res.data)
+                        this.props.hideSpinner();
+
                   })
                   .catch((e) => {
+                        this.props.hideSpinner();
                         console.log(e);
-                  })
+                  });
+            setTimeout(() => {
+                  console.log("will run after 5 second");
+            }, 5000)
       }
 
       componentDidMount() {
-            console.log("componentDidMount is triggered !!!!")
+            // this.props.showSpinner();
             this.fetchProducts();
+            // this.props.hideSpinner();
 
       }
 
       render() {
+            console.log("af product listing : ", this.props.spinner);
             return (
                   <div className="ui grid container">
                         <ProductComponent />
@@ -40,7 +45,15 @@ class ProductListing extends React.Component {
 
 const mapStateToDispatch = () => {
       return {
-            setProducts
+            setProducts,
+            showSpinner,
+            hideSpinner
       }
 }
-export default connect(undefined, mapStateToDispatch())(ProductListing);
+const mapStateToProps = (state) => {
+      return {
+            spinner: state.spinner
+      }
+
+}
+export default connect(mapStateToProps, mapStateToDispatch())(ProductListing);

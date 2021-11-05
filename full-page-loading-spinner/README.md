@@ -69,5 +69,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-I had learn product listing app from following youtube tutorial
+### YouTube Tutorial
+
+product listing app
 https://www.youtube.com/watch?v=0W6i5LYKCSI
+
+Fullpage loading spinner
+https://www.youtube.com/watch?v=vCs50MV-TbM
