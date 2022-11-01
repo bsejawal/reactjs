@@ -10,4 +10,4 @@ npm start >> ~/Desktop/error.txt
 npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
 ```
 
-https://www.youtube.com/watch?v=brcHK3P6ChQ&t=40s
+https://youtu.be/brcHK3P6ChQ?t=1809
