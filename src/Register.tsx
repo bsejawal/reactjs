@@ -4,16 +4,14 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  useRef,
-  useEffect,
-  useState,
-  useLayoutEffect,
-  FormEventHandler,
-} from "react";
+import { Axios, AxiosError, AxiosResponse } from "axios";
+import React, { useRef, useEffect, useState } from "react";
+import axios from "./api/axios";
+// import axios from "axios";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const REGISTER_URL = "/register";
 
 const Register = () => {
   const userRef = useRef<HTMLInputElement>(null);
@@ -56,7 +54,7 @@ const Register = () => {
   useEffect(() => {
     setErrMsg("");
   }, [user, pwd, matchPwd]);
-  const handleSubmit = async (e: HTMLFormElement) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     //if button enabled with JS hack
     const v1 = USER_REGEX.test(user);
@@ -65,9 +63,43 @@ const Register = () => {
       setErrMsg("Invalid Entry");
       return;
     }
-    console.log(user, pwd);
-    setSuccess(true);
+
+    try {
+      console.log("At try block");
+      const response = await axios.post(
+        REGISTER_URL,
+        JSON.stringify({ user, pwd }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(response.data);
+      //   console.log(response.accessToken);
+      console.log(JSON.stringify(response.data));
+      setSuccess(true);
+    } catch (e) {
+      if (isAxiosError(e)) {
+        if (!(e as AxiosError).response) {
+          setErrMsg("No Server Response");
+        } else if ((e as AxiosError).status === 409) {
+          setErrMsg("Username Taken");
+        } else {
+          console.log(e.message);
+          setErrMsg("Registration failed");
+        }
+      } else {
+        console.log("this is not AxiosError");
+        setErrMsg("Registration failed");
+      }
+    }
   };
+  function isAxiosError(x: unknown): x is AxiosError {
+    if (x && typeof x === "object" && "code" in x) {
+      return true;
+    }
+    return false;
+  }
 
   return (
     <>
@@ -86,7 +118,7 @@ const Register = () => {
             {errMsg}
           </p>
           <h1>Register</h1>
-          <form onSubmit={() => handleSubmit}>
+          <form onSubmit={handleSubmit}>
             {/* username */}
             <label htmlFor="username">
               Username:
@@ -165,7 +197,7 @@ const Register = () => {
             {/* password confirmation */}
             <label htmlFor="confirm_pwd">
               Confirm Password:
-              <span className={validMatch ? "valid" : "hide"}>
+              <span className={validMatch && matchPwd ? "valid" : "hide"}>
                 <FontAwesomeIcon icon={faCheck} />
               </span>
               <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
