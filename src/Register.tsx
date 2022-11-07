@@ -68,7 +68,7 @@ const Register = () => {
       console.log("At try block");
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ username: user, password: pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -80,16 +80,24 @@ const Register = () => {
       setSuccess(true);
     } catch (e) {
       if (isAxiosError(e)) {
+        console.log(e.response);
         if (!(e as AxiosError).response) {
-          setErrMsg("No Server Response");
-        } else if ((e as AxiosError).status === 409) {
-          setErrMsg("Username Taken");
+          setErrMsg(
+            "No Server Response, responseCode:" + (e as AxiosError).status
+          );
+        } else if ((e as AxiosError).response?.status === 409) {
+          setErrMsg(
+            "responseCode:" +
+              (e as AxiosError).response?.status +
+              ", message: " +
+              (e as AxiosError).response?.data
+          );
         } else {
           console.log(e.message);
-          setErrMsg("Registration failed");
+          setErrMsg("Registration failed, statusCode " + e.response?.status);
         }
       } else {
-        console.log("this is not AxiosError");
+        console.log("this is not AxiosError" + e);
         setErrMsg("Registration failed");
       }
     }
