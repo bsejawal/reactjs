@@ -4,7 +4,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Axios, AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import React, { useRef, useEffect, useState } from "react";
 import axios from "./api/axios";
 // import axios from "axios";
