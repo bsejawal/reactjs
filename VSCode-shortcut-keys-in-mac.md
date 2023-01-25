@@ -13,4 +13,4 @@ control + - (minus)
 7. go forward
 control + shift + - (minus)
 8. Duplicate a line
-shift + option + down arrow 
+shift + option + up/down arrow 
