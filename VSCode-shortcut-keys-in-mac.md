@@ -12,3 +12,5 @@ CMD + click
 control + - (minus)
 7. go forward
 control + shift + - (minus)
+8. Duplicate a line
+shift + option + down arrow 
