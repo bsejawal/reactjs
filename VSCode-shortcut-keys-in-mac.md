@@ -14,3 +14,7 @@ control + - (minus)
 control + shift + - (minus)
 8. Duplicate a line
 shift + option + up/down arrow 
+9. Go to Previous Location/ Navigate back
+Control + - (minus)
+10. Navigate Forward
+Control + shift + - (minus)
