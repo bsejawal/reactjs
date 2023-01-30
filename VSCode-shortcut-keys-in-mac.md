@@ -18,3 +18,5 @@ shift + option + up/down arrow
 Control + - (minus)
 10. Navigate Forward
 Control + shift + - (minus)
+11. remove unused import
+Option + shift + O
