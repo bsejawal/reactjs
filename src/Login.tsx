@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import AuthContext, { AuthProvider } from "./context/AuthProvider";
-import axios from "./api/axios";
+// import axios from "./api/axios";
+import axios from "axios";
 import { AxiosError } from "axios";
 
-const LOGIN_URL = "/login";
+const LOGIN_URL = "api/login";
 
 const Login = () => {
   const authContext = useContext(AuthContext);
@@ -31,11 +32,17 @@ const Login = () => {
         LOGIN_URL,
         JSON.stringify({ username: user, password: pwd }),
         {
-          headers: { "Context-Type": "application/json" },
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
           withCredentials: true,
         }
       );
+      // headers: { 'content-type': 'application/x-www-form-urlencoded' },
+
       console.log(JSON.stringify(response?.data));
+      console.log(response.data.roles);
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       if (authContext) {
@@ -59,7 +66,9 @@ const Login = () => {
           setErrMsg("Unauthorized");
         } else {
           console.log(e.message);
-          setErrMsg("Login failed, statusCode " + e.response?.status);
+          setErrMsg(
+            "Login failed, statusCode " + e.response?.status + " " + e.message
+          );
         }
       } else {
         console.log("this is not AxiosError" + e);
