@@ -1,15 +1,40 @@
+Clone project from git 
+```
+git@github.com:bsejawal/reactjs.git
+```
+
+Go to reactjs folder and Checkout login Branch 
 ```
 cd reactjs
 git checkout login
+```
+To Create react project with typescirpt template
+```
 npm uninstall create-react-app
 npx create-react-app . --template typescript
+```
+install packages 
+```
 npm install
+```
+```
 cp webpackDevServer.config.js node_modules/react-scripts/config/webpackDevServer.config.js
+```
+Start application
+```
 npm start
+```
+To dump start log into file
+```
 npm start >> ~/Desktop/error.txt
+```
+Install following dependencies
+```
 npm i --save @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
 npm install axios
+npm install react-router-dom
 ```
+Tutorial Link
 1) [React JS Form Validation, Axios User Registration Form Submit](https://www.youtube.com/watch?v=brcHK3P6ChQ&list=RDCMUCY38RvRIxYODO4penyxUwTg)
 2) [React User Login and Authentication with Axios](https://www.youtube.com/watch?v=X3qyxo_UTR4&list=RDCMUCY38RvRIxYODO4penyxUwTg)
 3) [React Protected Routes | Role-Based Authorization | React Router v6](https://www.youtube.com/watch?v=oUZjO00NkhY&list=RDCMUCY38RvRIxYODO4penyxUwTg)

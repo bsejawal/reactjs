@@ -92,6 +92,9 @@ const Login = () => {
           <p>
             <a href="#">Go to Home</a>
           </p>
+          <p>
+            <a href="#">Logout</a>
+          </p>
         </section>
       ) : (
         <section>
