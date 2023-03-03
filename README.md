@@ -1,13 +1,4 @@
-Clone project from git 
-```
-git@github.com:bsejawal/reactjs.git
-```
 
-Go to reactjs folder and Checkout login Branch 
-```
-cd reactjs
-git checkout login
-```
 To Create react project with typescirpt template
 ```
 npm uninstall create-react-app
@@ -42,3 +33,9 @@ Tutorial Link
 5) [React Persistent User Login Authentication with JWT Tokens](https://www.youtube.com/watch?v=27KeYk-5vJw&list=RDCMUCY38RvRIxYODO4penyxUwTg)
 6) [React Redux Login Authentication Flow with JWT Access, Refresh Tokens, Cookies](https://www.youtube.com/watch?v=-JJFQ9bkUbo&list=RDCMUCY38RvRIxYODO4penyxUwTg)
 
+Typescript React code snippets shortcut key
+https://marketplace.visualstudio.com/items?itemName=infeng.vscode-react-typescript
+
+
+completed video till this time 
+https://youtu.be/oUZjO00NkhY?t=1231

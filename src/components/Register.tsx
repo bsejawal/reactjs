@@ -6,7 +6,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import React, { useRef, useEffect, useState } from "react";
-import axios from "./api/axios";
+import { Link } from "react-router-dom";
+import axios from "../api/axios";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -241,7 +242,7 @@ const Register = () => {
             Already registered?
             <br />
             <span className="line">
-              <a href="#">Sign In</a>
+              <Link to="/login">Sign In</Link>
             </span>
           </p>
         </section>

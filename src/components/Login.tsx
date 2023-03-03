@@ -1,13 +1,17 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
-import AuthContext, { AuthProvider } from "./context/AuthProvider";
+import React, { useRef, useEffect, useState } from "react";
+import useAuth from "../hooks/useAuth";
 // import axios from "./api/axios";
 import axios from "axios";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
-const LOGIN_URL = "api/login";
+const LOGIN_URL = "api/authenticate";
 
 const Login = () => {
-  const authContext = useContext(AuthContext);
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
@@ -15,7 +19,6 @@ const Login = () => {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current?.focus();
@@ -45,13 +48,11 @@ const Login = () => {
       console.log(response.data.roles);
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      if (authContext) {
-        authContext.setAuth({ user, pwd, roles, accessToken });
-      }
+      setAuth({ user, pwd, roles, accessToken });
 
-      setSuccess(true);
       setUser("");
       setPwd("");
+      navigate(from, { replace: true });
     } catch (e) {
       if (isAxiosError(e)) {
         if (!(e as AxiosError).response) {
@@ -84,60 +85,45 @@ const Login = () => {
     return false;
   }
   return (
-    <>
-      {success ? (
-        <section>
-          <h1>You are logged in!</h1>
-          <br />
-          <p>
-            <a href="#">Go to Home</a>
-          </p>
-          <p>
-            <a href="#">Logout</a>
-          </p>
-        </section>
-      ) : (
-        <section>
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
-          <h1>Sign In</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              required
-            />
+    <section>
+      <p
+        ref={errRef}
+        className={errMsg ? "errmsg" : "offscreen"}
+        aria-live="assertive"
+      >
+        {errMsg}
+      </p>
+      <h1>Sign In</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setUser(e.target.value)}
+          value={user}
+          required
+        />
 
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-            />
-            <button>Sign In</button>
-          </form>
-          <p>
-            Need an Account?
-            <br />
-            <span className="line">
-              <a href="#">Sign Up</a>
-            </span>
-          </p>
-        </section>
-      )}
-    </>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
+          required
+        />
+        <button>Sign In</button>
+      </form>
+      <p>
+        Need an Account?
+        <br />
+        <span className="line">
+          <Link to="/register">Sign Up</Link>
+        </span>
+      </p>
+    </section>
   );
 };
 export default Login;
